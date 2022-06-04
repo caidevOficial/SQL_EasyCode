@@ -21,7 +21,7 @@ CREATE TABLE `books`(
   `amount_pages` INTEGER UNSIGNED NOT NULL DEFAULT 0,
   `publish_date` Date NOT NUll,
   `create_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (author_id) REFERENCES authors(author_id)
+  FOREIGN KEY (author_id) REFERENCES authors(author_id) ON DELETE CASCADE
 );
 
 CREATE TABLE `usuarios`(
@@ -118,6 +118,17 @@ VALUES
 (8, 'Tormenta de espadas','2005-10-17'),
 (8, 'Festin de cuervos','2011-07-12'),
 (8, 'Danza de dragones','2011-07-12');
+
+-- To add a field with a default value
+ALTER TABLE
+  `books`
+ADD
+  `test_colum` INT UNSIGNED DEFAULT 10;
+
+-- To drop an entire field.
+ALTER TABLE
+  `books`
+DROP COLUMN `test_colum`;
 
 DESC authors;
 DESC books;
