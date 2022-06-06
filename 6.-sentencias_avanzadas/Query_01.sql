@@ -3,124 +3,149 @@ CREATE DATABASE IF NOT EXISTS libreria_cf;
 
 USE libreria_cf;
 
-SELECT * FROM authors\G;
+-- Two ways to get all the rows from a table
+-- As a table
 SELECT * FROM authors;
+-- As a card
+SELECT * FROM authors\G;
 
-CREATE TABLE IF NOT EXISTS authors(
-  autor_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-  name VARCHAR(25) NOT NULL,
-  apellido VARCHAR(25) NOT NULL,
-  seudonimo VARCHAR(50) UNIQUE,
-  genero ENUM('M', 'F'),
-  fecha_nacimiento DATE NOT NULL,
-  pais_origen VARCHAR(40) NOT NULL,
-  fecha_creacion DATETIME DEFAULT current_timestamp
-);
+-- Returns all the rows that starts with 'Harry' in its title
+SELECT * FROM authors AS a WHERE a.title LIKE 'Harry%';
 
-CREATE TABLE books(
-  libro_id INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-  autor_id INT UNSIGNED NOT NULL,
-  titulo varchar(50) NOT NULL,
-  descripcion varchar(250) NOT NULL DEFAULT '',
-  paginas INTEGER UNSIGNED NOT NULL DEFAULT 0,
-  fecha_publicacion Date NOT NUll,
-  fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (autor_id) REFERENCES authors(autor_id) ON DELETE CASCADE
-);
+-- Returns all the rows that starts with 'Harry' in its title in card format
+SELECT * FROM authors AS a WHERE a.title LIKE 'Harry%'\G;
 
-CREATE TABLE usuarios(
-  usuario_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-  name varchar(25) NOT NULL,
-  apellidos varchar(25),
-  username varchar(25) NOT NULL,
-  email varchar(50) NOT NULL,
-  fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP
-);
+-- Returns all the rows that ends with 'anillo' in its title
+SELECT * FROM authors AS a WHERE a.title LIKE '%anillo';
 
-ALTER TABLE books ADD sales INT UNSIGNED NOT NULL DEFAULT 0;
-ALTER TABLE books ADD stock INT UNSIGNED DEFAULT 10;
+-- Returns all the titles that have 5 characters and have a 'b' in the third character
+SELECT * FROM authors AS a WHERE a.title LIKE '__b__';
 
-INSERT INTO authors (name, apellido, seudonimo, fecha_nacimiento, genero, pais_origen )
-  VALUES ('Stephen Edwin', 'King', 'Richard Bachman', '1947-09-27', 'M', 'USA'),
-         ('Joanne', 'Rowling', 'J.K Rowling', '1947-09-27', 'F', 'Reino unido'),
-         ('Daniel', 'Brown',  NULL, '1964-06-22', 'M', 'USA'),
-         ('John', 'Katzenbach ', NULL,'1950-06-23', 'M', 'USA'),
-         ('John Ronald', 'Reuel Tolkien', NULL, '1892-01-03', 'M', 'Reino unido'),
-         ('Miguel', 'de Unamuno', NULL, '1892-01-03', 'M', 'USA'),
-         ('Arturo', 'Pérez Reverte', NULL, '1951-11-25', 'M', 'España'),
-         ('George Raymond', 'Richard Martin', NULL, '1948-09-20', 'M', 'USA');
+-- Returns all the titles that have an 'a' in the second character
+SELECT * FROM authors AS a WHERE a.title LIKE '_a%';
 
-INSERT INTO books(autor_id, titulo, fecha_publicacion)
-VALUES (1, 'Carrie','1974-01-01'),
-      (1, 'El misterio de Salmes Lot','1975-01-01'),
-      (1, 'El resplando','1977-01-01'),
-      (1, 'Rabia','1977-01-01'),
-      (1, 'El umbral de la noche','1978-01-01'),
-      (1, 'La danza de la muerte','1978-01-01'),
-      (1, 'La larga marcha','1979-01-01'),
-      (1, 'La zona muerta','1979-01-01'),
-      (1, 'Ojos de fuego','1980-01-01'),
-      (1, 'Cujo','1981-01-01'),
-      (1, 'La torre oscura 1 El pistolero','1982-01-01'),
-      (1, 'La torre oscura 2 La invocación','1987-01-01'),
-      (1, 'Apocalipsis','1990-01-01'),
-      (1, 'La torre oscura 3 Las tierras baldías','1991-01-01'),
-      (1, 'La torre oscura 4 Bola de cristal','1997-01-01'),
-      (1, 'La torre oscura 5 Los de Calla','2003-01-01'),
-      (1, 'La torre oscura 6 La torre oscura','2004-01-01'),
-      (1, 'La torre oscura 7 Canción de Susannah','2004-01-01'),
-      (1, 'La niebla','1981-01-01'),
+-- Returns all the titles that have an 'a' in the second character and have a 'o' in the fifth character
+SELECT * FROM authors AS a WHERE a.title LIKE '_a__o%';
 
-      (2, 'Harry Potter y la Piedra Filosofal', '1997-06-30'),
-      (2, 'Harry Potter y la Cámara Secreta', '1998-07-2'),
-      (2, 'Harry Potter y el Prisionero de Azkaban','1999-07-8'),
-      (2, 'Harry Potter y el Cáliz de Fuego','2000-03-20'),
-      (2, 'Harry Potter y la Orden del Fénix','2003-06-21'),
-      (2, 'Harry Potter y el Misterio del Príncipe','2005-06-16'),
-      (2, 'Harry Potter y las Reliquias de la Muerte','2007-07-21'),
+-- Returns all the titles that starts with 'a' or 'h' in its title
+SELECT * FROM authors AS a WHERE a.title LIKE 'A%' OR a.title LIKE 'H%';
+SELECT * FROM authors AS a WHERE LEFT(a.title, 1) = 'A' OR LEFT(a.title, 1) = 'H';
 
-      (3, 'Origen', '2017-01-01'),
-      (3, 'Inferno', '2013-01-01'),
-      (3, 'El simbolo perdido', '2009-01-01'),
-      (3, 'El código Da Vinci', '2006-01-01'),
-      (3, 'La consipiración', '2003-01-01'),
+-- Returns all the titles that starts with at least one character from a list
+SELECT * FROM authors AS a WHERE LEFT(a.title, 1) IN ('A', 'H', 'E');
+SELECT * FROM authors AS a WHERE a.title REGEXP '^[AHE]';
 
-      (4, 'Al calor del verano', '1982-01-01'),
-      (4, 'Un asunto pendiente', '1987-01-01'),
-      (4, 'Juicio Final', '1992-01-01'),
-      (4, 'La sombra', '1995-01-01'),
-      (4, 'Juego de ingenios', '1997-01-01'),
-      (4, 'El psicoanalista', '2002-01-01'),
-      (4, 'La historia del loco', '2004-01-01'),
-      (4, 'El hombre equivocado', '2006-01-01'),
-      (4, 'El estudiante', '2014-01-01'),
+-- Returns all the rows orders by the title
+SELECT * FROM authors AS a ORDER BY a.title DESC;
+SELECT a.book_id, a.title FROM authors AS a ORDER BY a.book_id, a.title DESC;
 
-      (5, 'El hobbit','1937-01-01'),
-      (5, 'Las dos torres','1954-01-01'),
-      (5, 'El señor de los anillos','1954-01-01'),
-      (5, 'La comunidad del anillo','1954-01-01'),
-      (5, 'El retorno del rey','1955-01-01'),
+-- Returns the first 10 titles of the table
+SELECT * FROM authors AS a LIMIT 10;
 
-      (6, 'La niebla','1914-01-01'),
+-- Returns the first 10 titles of the table where the author_id = 7
+SELECT * FROM authors AS a WHERE a.author_id = 7 LIMIT 10;
 
-      (7, 'Eva','2017-01-01'),
-      (7, 'Falcó','2016-01-01'),
-      (7, 'Hombre buenos','2015-01-01'),
-      (7, 'Los barcos se pierden en tierra','2011-01-01'),
+-- Returns a portion of rows [starts from row 5] 
+-- from the table where the author_id = 7
+-- LIMIT 'from_row', 'amount_rows'
+SELECT * FROM authors AS a WHERE a.author_id = 7 LIMIT 5, 10;
 
-      (8, 'Juego de tronos','1996-08-01'),
-      (8, 'Choque de reyes','1998-11-16'),
-      (8, 'Tormenta de espadas','2005-10-17'),
-      (8, 'Festin de cuervos','2011-07-12'),
-      (8, 'Danza de dragones','2011-07-12');
+-- Aggregation functions
+-- Returns the sum of the columns
+SELECT SUM(b.sales) AS amount_sales FROM books AS b;
+
+-- Returns the average of the columns
+SELECT AVG(b.sales) AS average_sales FROM books AS b;
+
+-- Returns the minimum of the columns
+SELECT MIN(a.pages) AS minimum_pages FROM authors AS a;
+
+-- Returns the maximum of the columns
+SELECT MAX(a.pages) AS maximum_pages FROM authors AS a;
+
+-- Returns the count of the rows
+SELECT COUNT(*) AS amount_rows FROM authors AS a;
+
+-- Returns the count of the rows that the authors have an alias
+SELECT COUNT(a.alias) AS amount_rows FROM authors AS a;
+
+-- With the aggregations functions we can work with the 
+-- registers or cells that aren't NULL
+
+-- Returns all the sales of the books, grouped by authors
+-- And order by the amount of sales DESC
+SELECT b.author_id, SUM(b.sales) AS amount_sales 
+FROM books AS b 
+GROUP BY b.author_id
+ORDER BY amount_sales DESC;
+
+-- Having clause
+-- Returns all the sales of the books, grouped by authors
+-- that have more than 5000 sales
+-- And order by the amount of sales DESC
+-- Remember that we can't conditionate an aggregation function
+-- With a where clause, so we have to use the having clause
+SELECT b.author_id, SUM(b.sales) AS amount_sales
+FROM books AS b
+GROUP BY b.author_id
+HAVING SUM(b.sales) > 5000
+ORDER BY amount_sales DESC;
+
+-- UNION operator
+
+-- Returns the fullname of the authors and the users
+-- the alias and the amount of columns MUST be the same
+SELECT CONCAT(a.name, ' ', a.surname) AS fullname
+FROM `authors` AS a
+UNION
+SELECT CONCAT(u.name, ' ', u.surname) AS fullname
+FROM `users` AS u;
+
+-- Also if we need to return 2 columns from a table but only
+-- 1 from other table, we can simulate wit a empty field
+SELECT CONCAT(a.name, ' ', a.surname) AS fullname, '' AS Email
+FROM `authors` AS a
+UNION
+SELECT CONCAT(u.name, ' ', u.surname) AS fullname, u.email AS Email
+FROM `users` AS u;
 
 
-INSERT INTO usuarios (name, apellidos, username, email)
-VALUES  ('Eduardo', 'García', 'eduardogpg', 'eduardo@codigofacilito.com'),
-        ('Codi1', 'Facilito', 'codigofacilito', 'ayuda@codigofacilito.com'),
-        ('Codi2', 'Facilito', 'codigofacilito', 'ayuda@codigofacilito.com'),
-        ('Codi3', 'Facilito', 'codigofacilito', 'ayuda@codigofacilito.com');
+-- Using variables with aggregate functions
+SET @avg = (SELECT AVG(b.sales) AS average_sales FROM books AS b);
 
-DESC authors;
-DESC books;
-DESC usuarios;
+SELECT b.author_id FROM books AS a
+GROUP BY b.author_id
+HAVING SUM(b.sales) > @avg;
+
+-- Also we can do a subquery
+SELECT
+  CONCAT(a.name, ' ', a.surname) AS fullname
+FROM
+  `authors` AS a
+WHERE
+  a.author_id IN (
+    SELECT
+      b.author_id
+    FROM
+      books AS b
+    GROUP BY
+      b.author_id
+    HAVING
+      SUM(b.sales) > (
+        SELECT
+          AVG(b.sales) AS average_sales
+        FROM
+          books AS b
+      )
+  );
+
+-- We can use the EXISTS operator to validate
+SELECT IF(
+  EXISTS(
+    SELECT b.book_id
+    FROM `books` AS b
+    WHERE b.title LIKE '%Hobbit' 
+  ),
+  'Have Stock',
+  'Out of Stock'
+) AS stock_status;
