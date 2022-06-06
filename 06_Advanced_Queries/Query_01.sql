@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS libreria_cf;
-CREATE DATABASE IF NOT EXISTS libreria_cf;
+DROP DATABASE IF EXISTS library_ff;
+CREATE DATABASE IF NOT EXISTS library_ff;
 
-USE libreria_cf;
+USE library_ff;
 
 -- Two ways to get all the rows from a table
 -- As a table

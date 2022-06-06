@@ -24,7 +24,7 @@ CREATE TABLE `books`(
   FOREIGN KEY (author_id) REFERENCES authors(author_id) ON DELETE CASCADE
 );
 
-CREATE TABLE `usuarios`(
+CREATE TABLE `users`(
   `user_id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(25) NOT NULL,
   `surname` varchar(25),
