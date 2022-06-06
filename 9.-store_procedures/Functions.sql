@@ -31,4 +31,3 @@ DELIMITER ;
 
 UPDATE `books` SET pages = get_amount_pages();
 UPDATE `books` SET sales = get_amount_sales();
-

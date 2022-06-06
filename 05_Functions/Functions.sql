@@ -57,27 +57,34 @@ FROM
 -- Creating Functions
 -- Specifies an specific delimitator for the function
 -- You can use any symbol to delimit the function, for example //
-DELIMITER / / CREATE FUNCTION add_days(actual_date DATE, amount_days INT) RETURNS DATE BEGIN RETURN actual_date + INTERVAL amount_days DAY;
+DELIMITER //
+CREATE FUNCTION add_days(actual_date DATE, amount_days INT)
+RETURNS DATE
+BEGIN
+RETURN actual_date + INTERVAL amount_days DAY;
+END//
 
-END / / CREATE FUNCTION get_amount_pages() RETURNS INT BEGIN
+CREATE FUNCTION get_amount_pages()
+RETURNS INT
+BEGIN
 SET
   @pages = (
     SELECT
       (ROUND(RAND() * 100) * 4)
   );
-
 RETURN @pages;
+END//
 
-END / / CREATE FUNCTION get_amount_sales() RETURNS INT BEGIN
+CREATE FUNCTION get_amount_sales()
+RETURNS INT
+BEGIN
 SET
   @pages = (
     SELECT
       (ROUND(RAND() * 100) * 6)
   );
-
 RETURN @pages;
-
-END / / DELIMITER;
+END//
 
 -- To use the functions you need to specify the default delimiter ;
 DELIMITER;
