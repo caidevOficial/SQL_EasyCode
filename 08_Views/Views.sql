@@ -1,11 +1,13 @@
-CREATE OR REPLACE VIEW prestamos_usuarios_vw AS
+CREATE
+OR REPLACE VIEW `users_loan_vw` AS
 SELECT
-  usuarios.usuario_id,
-  usuarios.nombre,
-  usuarios.email,
-  usuarios.username,
-  COUNT(usuarios.usuario_id) AS total_prestamos
-
-FROM usuarios
-INNER JOIN libros_usuarios ON usuarios.usuario_id = libros_usuarios.usuario_id
-GROUP BY usuarios.usuario_id;
+  u.user_id,
+  u.name,
+  u.email,
+  u.username,
+  COUNT(u.user_id) AS amount_loans
+FROM
+  `users` AS u
+  INNER JOIN `users_books` AS ub ON u.user_id = ub.user_id
+GROUP BY
+  u.user_id;
