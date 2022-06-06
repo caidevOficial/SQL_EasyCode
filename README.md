@@ -1,243 +1,119 @@
-
-Reset MySQL root password
-If you have lost the password of your root user, don't worry, it is possible to reset it by following the steps below.
-
-If the server is on a remote machine, we must enter it through SSH [Tutorial](https://www.youtube.com/watch?v=DtUt79BVvJ0&t=14s)
-
-The first thing we need to do is stop the server.
-
-```powershell
-mysql.server stop
-```
-```powershell
-service mysqld stop
-```
-
-```powershell
-mysqld stop
-```
-Once the server is stopped, we must restart it in a safe mode.
-
-```powershell
-sudo mysqld_safe --skip-grant-tables --skip-networkin
-```
-
---skip-grant-tables It allows us to connect to the server without the need for a password, in addition to granting all the privileges to the session.
-
-```powershell
---skip-networkin Detiene la escucha de peticiones TCP/IP
-```
-
-Now, in a new tab, we must connect to the server using the root user
-
-```powershell
-mysql -u root
-```
-
-Once inside the server, we must work with the MySQL database
-
-```powershell
-USE mysql;
-```
-
-With the database change we will update.
-
-```powershell
-UPDATE user SET password=PASSWORD('your_password') WHERE user='root';
-```
-
-If the update was successful we must exit the server
-
-```powershell
-FLUSH PRIVILEGES;
-exit
-```
-
-The final step is to stop the server in safe mode. We start the server as usual and we authenticate, the password will already be working.
-
-```powershell
-mysql -u root -p 
-```
-
-How to connect:
-
-```powershell
-mysql -u root -p -h localhost
-```
-
-Set variables in two ways:
-
-```SQL
-SET @name = 'My_name';
-SET @password := 'My_password';
-SET @course := 'My_course', @gestor := 'Mysql';
-```
-
-Using Variables:
-
-```SQL
-@my_sum = @a + @b; 
-```
-
-Show all the databases of the server:
-
-```SQL
-SHOW DATABASES;
-```
-
-Creating Database:
-
-```SQL
-CREATE DATABASE IF NOT EXISTS my_database;
-```
-
-Drop an specific database:
-
-```SQL
-DROP DATABASE IF EXISTS @database;
-```
-
-where *@database* is the name of the database you want to delete.
-
-Using a specific database to, for example, create a table:
-
-```SQL
-USE my_database;
-```
-
-Show all the info of a table [Two ways]:
-
-```SQL
-SHOW COLUMNS FROM my_table;
-DESC my_table;
-```
-
-To create a table bassed on the schema of another one we should use:
-
-```SQL
-CREATE TABLE IF NOT EXISTS my_new_table LIKE my_other_table;
-```
-
-To execute a query file from the console we can use [Two ways]:
-
-```powershell
-mysql -u root -p < path_to_file/my_query.sql
-```
-
-Using this way, you can see the result of each query in the console.
-
-```sql
-SOURCE path_to_file/my_query.sql;
-```
-
-If you want to execute a query without login in, you can use:
-
-```powershell
-mysql -u root -p my_database -e 'SELECT * FROM my_table';
-```
-
-### Type of data
-In general, most database servers allow us to store the same type of data, such as strings, dates, and numbers.
-
-In this post, we list the types of data that you will use the most in your day to day life.
-
-ALPHANUMERIC
-CHAR
-VARCHAR
-In both cases we must specify the maximum length that the field can store. Optionally we can define the charset that will store.
-
-```SQL
-varchar(20) character set utf8
-```
-
-With MySQL we can set the charset that the database will use from its creation 
-
-```sql
-CREATE DATABASE my_database CHARACTER SET utf8;
-```
-
-### INTEGER NUMBERS
-
 <table>
-    <thead>
-        <tr>
-            <th>Type</th>
-            <th>Range</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Tinyint</td>
-            <td>-128 a 127</td>
-        </tr>
-        <tr>
-            <td>Smallint</td>
-            <td>-32,768 a 32,767</td>
-        </tr>
-        <tr>
-            <td>Mediumint</td>
-            <td>-8,388,608 a 8,388,607</td>
-        </tr>
-        <tr>
-            <td>Int</td>
-            <td>-2,147,483,648 a 2,147,483,647</td>
-        </tr>
-        <tr>
-            <td>Bigint</td>
-            <td>-9,223,372,036,854,775,808 a 9,223,372,036,854,775,807</td>
-        </tr>
-    </tbody>
+    <tr align='center'>
+      <td>
+          <img alt="Personal Logo" src="https://github.com/caidevOficial/Logos/raw/master/Personales/Personal_Logo_Gif.gif?raw=true" height="150px" />
+      </td>
+      <td>
+        <img alt="MySQL Logo" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg?raw=true" height="200px" />
+      </td>
+    </tr>
+    <tr align='center'>
+      <td colspan='2'>
+        <img alt="Codigo_Facilito Logo" src="https://codigofacilito.com/assets/logo-cbf2a784ebee5d642aa7b8182df3e388d4feba0a23577eed1d2747fa05861f73.png?raw=true" height="100px" />
+      </td>
+    </tr>
 </table>
+</br>
 
+<div align="center">
+    <h3>Pisces♓ | Developer👨‍💻 | Python<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="28"/> | GCP <img src="https://www.vectorlogo.zone/logos/google_cloud/google_cloud-icon.svg?raw=true" alt="GCP" width="30" height="30"> | Java <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="30" height="30"/> | C# <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg" alt="csharp" width="25" height="25"/> | Dreamer 💖 | Teacher👨‍🏫| A bit nerd🤓</h3>
+    <br>
+    <h3>📌 Programming Student & Assistant Professor at the <br>
+    <strong>National Technological University [UTN]</strong> 👨‍💻</h3>
+    <h3>📌 Data Engineer at <strong>Accenture</strong> 👨‍💻</h3>
+</div>
 
-FLOATING NUMBERS
-For the floats we will find two types
+![](https://hit.yhype.me/github/profile?user_id=12877139)
 
-* Float
-* double
+<p align="center">
+    <img src="https://komarev.com/ghpvc/?username=caidevoficial&label=Profile%20views&color=0e75b6&style=plastic" alt="caidevoficial" />
+</p>
 
-In both cases we must specify the number of digits that the column will store before and after the point (p,s)
+<p align="center">
+    <a href="https://github.com/CaidevOficial">
+        <img src="https://github-profile-trophy.vercel.app/?username=caidevoficial&theme=nord&column=7" alt="caidevoficial" />
+    </a>
+</p>
+<br><br><br>
 
-```SQL
-precio FLOAT(3, 2)
-```
+---
 
-In this case the column can store up to three digits as integers and two after the decimal point.
+# Professional Database Course
+### Index
+* [Tables & Registers](./01_Tables_%26_Registers/README.md)
+* [Constraints](./02_Constraints/README.md)
+* [Alter Tables](./03_Modify_Tables/README.md)
+* [Basic Queries](./04_Basic_Queries/README.md)
+* [Functions](./05_Functions/Functions.sql)
+* [Advanced Queries](./06_Advanced_Queries/README.md)
+* [Joins](./07_Joins/Joins.sql)
+* [Views](./08_Views/README.md)
+* [Stored Procedures](./09_Stored_Procedures/Procedures.sql)
+* [Transactions](./10_Transactions/README.md)
+* [Extras](./10_01_Extras/README.md)
+* [Triggers](./11_Triggers/README.md)
 
-Example 999.99
+<br>
 
-### TIME
-
-<table>
-    <thead>
-        <tr>
-            <th>Type</th>
-            <th>Default Format</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Date</td>
-            <td>YYYY-MM-DD</td>
-        </tr>
-        <tr>
-            <td>Datetime</td>
-            <td>YYYY-MM-DD HH:MI:SS</td>
-        </tr>
-        <tr>
-            <td>Timestamp</td>
-            <td>YYYY-MM-DD HH:MI:SS</td>
-        </tr>
-        <tr>
-            <td>Time</td>
-            <td>HH:MI:SS</td>
-        </tr>
-    </tbody>
+<table align='center'>
+    <tr align='center'>
+        <h2 align='center'>Technologies used. 📌</h2>
+        <td>
+            <a href="https://www.mysql.com/">
+                <img alt="MySQL Logo" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg?raw=true" width="50px" height="50px" />
+            </a>
+        </td>
+        <td><center>MySQL</center></td>
+    </tr>
+    <tr align='center'>
+        <td>
+            <a href="https://code.visualstudio.com/"><img alt="VSCode Logo" src="https://github.com/caidevOficial/Logos/blob/master/Lenguajes/visual-studio-code.svg?raw=true" height="50px" /></a>
+        </td>
+        <td><center>VSCode</center></td>
+    </tr>
 </table>
+</br>
 
-
-##### Examples from __curso profesional de base de datos__.
-
-Link of [curso_db]
-
-[curso_db]: <https://codigofacilito.com/cursos/base-datos-profesional>
+---
+<br><br><br>
+<table align='center'>
+  <theader>
+  <th><h2 align='center'>Where to find me: 🌎</h2></th>
+    <tr align='center'>
+      <td>
+        <img class="circular" alt="Facu" src="https://avatars1.githubusercontent.com/u/12877139?s=400&u=d369ee24466653d9bbeeb9654930e3ff1c67b76a&v=4" width="80px" height="80px" />
+      </td>
+    </tr>
+    <th><center>🤴 Facu Falcone - Junior Developer</center></th>
+    </theader>
+    <tbody>
+    <tr align='center'>
+      <td>
+        <a href="https://github.com/caidevOficial/">
+          <img alt="GitHub" src="https://img.shields.io/badge/GitHub-%2312100E.svg?&style=for-the-badge&logo=Github&logoColor=white" width="125px" height="30px" />
+        </a>
+      </td>
+    </tr>
+    <tr align='center'>
+      <td>
+          <a href="https://www.linkedin.com/in/facundo-falcone/">
+            <img alt="LinkedIn" src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" width="125px" height="30px" />
+          </a>
+      </td>
+    </tr>
+    <tr align='center'>
+      <td>
+        <a href="https://cafecito.app/caidevoficial/">
+          <img alt='Invitame un café en cafecito.app' srcset='https://cdn.cafecito.app/imgs/buttons/button_5.png 1x, https://cdn.cafecito.app/imgs/buttons/button_5_2x.png 2x, https://cdn.cafecito.app/imgs/buttons/button_5_3.75x.png 3.75x' src='https://cdn.cafecito.app/imgs/buttons/button_5.png' width="125px" height="30px" />
+        </a>
+      </td>
+    </tr>
+    <tr align='center'>
+      <td>
+        <a href='https://ko-fi.com/P5P74JBOH' target='_blank'>
+          <img width="125px" height="30px" style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi1.png?v=2' border='0' alt='Buy Me a Coffee at ko-fi.com' />
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,9 +1,17 @@
+## Index
+* [Events](#mysql-events)
+* [Cursors](./README2.md)
+* [Information Backup](./README3.md)
+* [Permissions](./README4.md)
+
 ## MySQL Events
 As of version 5.1, MySQL adds the concept of events. An event is nothing more than a task which is executed automatically at a previously scheduled time. If you are a Linux user you can see the events as the cron jobs .
 
 The events will allow us as database administrators to program certain tasks which we want to be executed periodically or at a specific time, in such a way that we can automate certain processes.
 
-<img height='200' src='https://i.imgur.com/L0j46Th.png?raw=true'>
+<div align='center'>
+    <img alt="MySQL Logo" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg?raw=true" height="200px" />
+</div>
 
 ### EXAMPLES
 For this tutorial I will rely on my test table.

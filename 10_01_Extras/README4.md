@@ -5,7 +5,9 @@ Up to this point in the course, all the exercises have been done using the root 
 
 If we are the only administrators of the server (something that very rarely happens) we should have no problem continuing to use root, however, if more people will work with the server, it will be necessary to create new users and assign the relevant permissions.
 
-<img height='200' src='https://i.imgur.com/L0j46Th.png?raw=true'>
+<div align='center'>
+    <img alt="MySQL Logo" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg?raw=true" height="200px" />
+</div>
 
 ### ADD NEW USERS
 For us to generate a new user, the first thing we must do is authenticate ourselves on the server.
